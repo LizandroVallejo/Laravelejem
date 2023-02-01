@@ -63,6 +63,10 @@ Route::post('/acceso/login', [AccesoController::class, 'acceso_login_post'])->na
 Route::get('/acceso/registro', [AccesoController::class, 'acceso_registro'])->name('acceso_registro');
 Route::post('/acceso/registro', [AccesoController::class, 'acceso_registro_post'])->name('acceso_registro_post');
 Route::get('/acceso/salir', [AccesoController::class, 'acceso_salir'])->name('acceso_salir');
+Route::get('/recuperar', [AccesoController::class, 'recuperar'])->name('recuperar');
+Route::post('/recuperar', [AccesoController::class, 'recuperar_post'])->name('recuperar_post');
+Route::get('/recuperar_ingresar', [AccesoController::class, 'recuperar_ingresar'])->name('recuperar_ingresar');
+Route::post('/recuperar_ingresar', [AccesoController::class, 'recuperar_ingresar_post'])->name('recuperar_ingresar_post');
 
 Route::get('/protegida', [ProtegidaController::class, 'protegida_inicio'])->name('protegida_inicio');
 Route::get('/protegida/otra', [ProtegidaController::class, 'protegida_otra'])->name('protegida_otra');

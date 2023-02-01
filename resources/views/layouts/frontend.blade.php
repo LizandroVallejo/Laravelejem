@@ -61,9 +61,11 @@
       <a class="p-2 link-secondary" href="{{route('utiles_inicio')}}">Útiles</a>
       
       @if(Auth::check())
+      <a class="p-2 link-secondary" href="{{route('recuperar')}}">Recuperar </a>
       <a class="p-2 link-secondary" href="">Hola {{ Auth::user()->name }} ({{@session('perfil')}})</a>
       <a class="p-2 link-secondary" href="{{route('protegida_inicio')}}">Protegida </a>
       <a class="p-2 link-secondary" href="{{route('protegida_otra')}}">Protegida 2 </a>
+      
       <a class="p-2 link-secondary" href="javascript:void(0);" onclick="confirmaAlert('¿Realmente desea cerrar su sesión?',   '{{route('acceso_salir')}}');">Salir</a>
       @else
       <a class="p-2 link-secondary" href="{{route('acceso_login')}}">Login</a>

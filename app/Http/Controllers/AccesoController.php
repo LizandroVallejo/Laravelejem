@@ -6,6 +6,12 @@ use App\Models\UserMetadata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EjemploMailable;
+
+
+
+
 
 class AccesoController extends Controller
 {
@@ -103,5 +109,75 @@ class AccesoController extends Controller
         $request->session()->flash('css', 'success');
         $request->session()->flash('mensaje', 'Cerraste la sesión exitosamente');
         return redirect()->route('acceso_login');
+    }
+    public function recuperar(Request $request){
+        $token= bin2hex(random_bytes(10));
+        $token = $token.date("YmdHis");
+        $html="<h1>Hola este es un mail</h1>
+        <hr/>
+        <a href='http://127.0.0.1:8000/recuperar_ingresar?token=".$token."'>Link</a>
+        .";
+        
+        $correo=new EjemploMailable($html);
+        Mail::to("lizoef@gmail.com")->send($correo);
+        $user = Auth::user();
+
+        $datos=User::where(['id'=>$user->id])->first();
+        $datos->remember_token=$token;
+        $datos->save();
+        $request->session()->flash('css', 'success');
+        $request->session()->flash('mensaje', "Se envió un mail de confirmacion a tu correo");
+        return redirect()->route('template_inicio');
+        
+    }
+    public function recuperar_post(Request $request){
+       
+            $token= bin2hex(random_bytes(10));
+            $token = $token.date("YmdHis");
+            $html="<h1>Hola este es un mail</h1>
+            <hr/>
+            <a href='http://127.0.0.1:8000/recuperar_ingresar?token=".$token."'>Link</a>
+            .";
+            
+            $correo=new EjemploMailable($html);
+            Mail::to("lizoef@gmail.com")->send($correo);
+            $user = Auth::user();
+
+            $datos=User::where(['id'=>$user->id])->first();
+            $datos->remember_token=$token;
+            $datos->save();           
+    }
+    public function recuperar_ingresar(Request $request, ){
+        
+        $user = Auth::user();
+        $datos=User::where(['id'=>$user->id])->first();
+        if(!$request->token = $datos->remember_token){
+            $request->session()->flash('css', 'danger');
+            $request->session()->flash('mensaje', "Token no valido");
+            return redirect()->route('template_inicio');
+        }
+
+        return view('acceso.recuperar_ingresar');
+    }
+    public function recuperar_ingresar_post(Request $request){
+            $request->validate(
+            [ 
+                'password' => 'required|min:6|confirmed' 
+            ],
+            [
+                'password.min'=>'El campo Password debe tener al menos 6 caracteres',
+                'password.confirmed'=>'Las contraseñas ingresadas no coiciden',
+            ]
+            );
+            $user = Auth::user();
+            $datos=User::where(['id'=>$user->id])->first();
+            $datos->remember_token=null;
+            $datos->password =Hash::make($request->input('password'));
+            $datos->save();  
+
+            $request->session()->flash('css', 'success');
+            $request->session()->flash('mensaje', "Se cambio la contraseña exitosamente");
+            return redirect()->route('template_inicio');
+
     }
 }
