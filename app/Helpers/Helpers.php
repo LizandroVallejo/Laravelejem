@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Helpers;
-
+use Illuminate\Support\Facades\Mail;
 
 class Helpers
 {
    
-
+  
   public static function getVersion()
   {
     return 'Versión 1.0 | 01/08/2019';

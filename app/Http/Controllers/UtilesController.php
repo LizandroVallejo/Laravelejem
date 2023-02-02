@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Http;
 use SoapClient;
 class UtilesController extends Controller
 {
+
+    function debuguear($variable){
+      echo "    <pre>
+      var_dump($variable);
+    </pre>";
+      exit;
+    }
+  
     public function utiles_inicio()
     { 
       return view('utiles.home' );

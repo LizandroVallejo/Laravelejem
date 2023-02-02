@@ -8,6 +8,7 @@
    <x-flash />
     <form action="{{route('recuperar_ingresar_post')}}" method="POST">
  {{ csrf_field() }}
+
      
         <div class="form-group">
             <label for="password">Contraseña: </label>
@@ -17,10 +18,16 @@
             <label for="password2">Repetir Contraseña: </label>
             <input type="password" name="password_confirmation" id="password_confirmation" class="form-control"  />
         </div>
+        <div class="form-group" >
+            <label for="token"> </label>
+            <input type="hidden" name="token" id="token" class="form-control"  value="{{ $token }}"/>
+        </div
        
         <hr>
       <input type="submit" value="Enviar" class="btn btn-primary" />
     </form>
 </main>
+
+
 
 @endsection

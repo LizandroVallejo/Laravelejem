@@ -67,6 +67,8 @@ Route::get('/recuperar', [AccesoController::class, 'recuperar'])->name('recupera
 Route::post('/recuperar', [AccesoController::class, 'recuperar_post'])->name('recuperar_post');
 Route::get('/recuperar_ingresar', [AccesoController::class, 'recuperar_ingresar'])->name('recuperar_ingresar');
 Route::post('/recuperar_ingresar', [AccesoController::class, 'recuperar_ingresar_post'])->name('recuperar_ingresar_post');
+Route::get('/validar', [AccesoController::class, 'validarcorreo'])->name('validarcorreo');
+Route::post('/validar', [AccesoController::class, 'validarcorreo_post'])->name('validarcorreo_post');
 
 Route::get('/protegida', [ProtegidaController::class, 'protegida_inicio'])->name('protegida_inicio');
 Route::get('/protegida/otra', [ProtegidaController::class, 'protegida_otra'])->name('protegida_otra');
